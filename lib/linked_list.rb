@@ -5,10 +5,10 @@ class LinkedList
 
   attr_accessor :head
 
-  def initialize(node = nil)
-    @head = node
-
+  def initialize
+    @head = Node.new
   end
+
 # append an element to the end of the list
   def append(node)
     if @head == nil
@@ -21,6 +21,7 @@ class LinkedList
       current.next_node = node
     end
   end
+
 # prepend an element at the beginning of the list
   def prepend(node)
     if @head.nil?
@@ -30,16 +31,25 @@ class LinkedList
       @head = node
     end
   end
+
 # insert an element at an arbitrary position in the list
   def insert(index, node)
 
   end
-# includes? gives back true or false whether the supplied value is in the list
-  def includes?
 
+# includes? gives back true or false whether the supplied
+# value is in the list
+  def includes?(searched_node)
+    node = @head
+    while node != searched_node && node.next_node
+      node = node.next_node
+    end
+    return true if node == searched_node
   end
+
 # pop an element from the end of the list
   def pop
+
   end
 # count the number of elements in the list
   def count(node)
@@ -48,6 +58,7 @@ class LinkedList
     count += 1
     else
 
+    end
   end
 # return the head value at the beginning of the list
 # return the tail value at the end of the list

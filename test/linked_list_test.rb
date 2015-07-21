@@ -49,7 +49,6 @@ class LinkedListTest < Minitest::Test
   end
 
   def test_insert_node_at_arbitrary_position
-    skip
     list = LinkedList.new
     node1 = Node.new("Thunderstruck")
     node2 = Node.new("Back in Black")
@@ -61,4 +60,23 @@ class LinkedListTest < Minitest::Test
     assert_equal list.head.next_node.data, "You Shook Me All Night Long"
 
   end
+
+  def test_node_is_identified_in_list
+    list = LinkedList.new
+    node1 = Node.new("Violin")
+    node2 = Node.new("Cello")
+    list.prepend(node1)
+    list.prepend(node2)
+    assert list.includes?(node2)
+  end
+
+  def test_list_refutes_inclusion_of_node_not_in_list
+    list = LinkedList.new
+    node1 = Node.new("Violin")
+    node2 = Node.new("Cello")
+    list.prepend(node1)
+    refute list.includes?(node2.data)
+  end
+
+
 end
