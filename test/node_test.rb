@@ -6,8 +6,7 @@ require './lib/node'
 class NodeTest < Minitest::Test
 
   def test_node_is_head
-    data = 12
-    node = Node.new(data)
+    node = Node.new("data")
     assert node.next_node.nil?
   end
 

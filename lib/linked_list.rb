@@ -1,4 +1,5 @@
 require './lib/node'
+require 'pry'
 
 class LinkedList
 
@@ -8,12 +9,17 @@ class LinkedList
 
   end
 # prepend an element at the beginning of the list
-  def prepend
-
+  def prepend(node)
+    if @head.nil?
+      @head = node
+    else
+      node.next_node = @head
+      @head = node
+    end
   end
 # insert an element at an arbitrary position in the list
-  def insert
-
+  def insert(node)
+    
   end
 # includes? gives back true or false whether the supplied value is in the list
 # pop an element from the end of the list
