@@ -12,7 +12,7 @@ class LinkedList
       @head = node
     else
       until current_node.next_node == nil
-         current_node = current_node.next_node
+        current_node = current_node.next_node
       end
       current_node.next_node = node
     end
@@ -63,20 +63,48 @@ class LinkedList
   end
 
   # pop an element from the end of the list
-  def pop(node)
-    current_node = @head
+  def pop
+    if @head.next_node != nil
+    current_node  = @head
+    previous_node = @head
+    tail_position = 0
     until current_node.next_node == nil
-       current_node = current_node.next_node
+      current_node = current_node.next_node
+      tail_position += 1
     end
-
+      (tail_position-1).times do previous_node = previous_node.next_node
+      end
+      previous_node.next_node = nil
+    else
+      @head = nil
+    end
   end
 
   # count the number of elements in the list
+  def count
+    if @head != nil
+    current_node = @head
+    count = 1
+      until current_node.next_node == nil
+        current_node = current_node.next_node
+        count += 1
+      end
+    count
+    else
+      0
+    end
+  end
+
   # return the head value at the beginning of the list
+
   # return the tail value at the end of the list
+
   # find_by_index find the value at a numeric position
+
   # find_by_value finds the position of the first occurrence of a value
+
   # remove_by_index removes the value at the specified index
+
   # remove_by_value removes the first occurrence of the specified value
 
 end

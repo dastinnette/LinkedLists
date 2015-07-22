@@ -93,11 +93,39 @@ class LinkedListTest < Minitest::Test
     assert list.includes?(node.data)
   end
 
-  def test_pop_one_item_list_removes_item
+  def test_pop_from_one_item_list_creates_nil_list
     list = LinkedList.new
-    node = Node.new
+    node = Node.new("Beer")
     list.prepend(node)
-    list.pop(node)
+    list.pop
     assert_equal nil, list.head
+  end
+
+  def test_pop_from_longer_list_removes_last_item_only
+    list = LinkedList.new
+    node1 = Node.new("Violin")
+    node2 = Node.new("Cello")
+    node3 = Node.new("Viola")
+    list.prepend(node1)
+    list.append(node2)
+    list.append(node3)
+    list.pop
+    assert_equal nil, list.head.next_node.next_node
+  end
+
+  def test_count_correctly_counts_empty_list
+    list = LinkedList.new
+    assert_equal 0, list.count
+  end
+
+  def test_count_correctly_counts_multiple_item_list
+    list = LinkedList.new
+    node1 = Node.new("Violin")
+    node2 = Node.new("Cello")
+    node3 = Node.new("Viola")
+    list.prepend(node1)
+    list.append(node2)
+    list.append(node3)
+    assert_equal 3, list.count
   end
 end
