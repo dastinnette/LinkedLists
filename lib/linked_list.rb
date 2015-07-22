@@ -96,8 +96,31 @@ class LinkedList
   end
 
   # return the head value at the beginning of the list
+  def head_value
+    if @head != nil
+      @head.data
+    else
+      nil
+    end
+  end
 
   # return the tail value at the end of the list
+  def tail_value
+    if @head != nil
+    current_node  = @head
+    tail_node     = @head
+    tail_position = 0
+    until current_node.next_node == nil
+      current_node = current_node.next_node
+      tail_position += 1
+    end
+      (tail_position).times do tail_node = tail_node.next_node
+      end
+      tail_node.data
+    else
+      nil
+    end
+  end
 
   # find_by_index find the value at a numeric position
 
@@ -109,16 +132,6 @@ class LinkedList
 
 end
 __END__
-
-# count the number of elements in the list
-  def count(node)
-    count = 0
-    if
-    count += 1
-    else
-
-    end
-  end
 
 # find_by_index find the value at a numeric position
   def find_by_index

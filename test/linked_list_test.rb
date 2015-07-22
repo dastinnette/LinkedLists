@@ -128,4 +128,36 @@ class LinkedListTest < Minitest::Test
     list.append(node3)
     assert_equal 3, list.count
   end
+
+  def test_return_head_value_for_empty_list
+    list = LinkedList.new
+    assert_equal nil, list.head_value
+  end
+
+  def test_return_head_value_for_multiple_item_list
+    list = LinkedList.new
+    node1 = Node.new("Violin")
+    node2 = Node.new("Cello")
+    node3 = Node.new("Viola")
+    list.prepend(node1)
+    list.append(node2)
+    list.append(node3)
+    assert_equal "Violin", list.head_value
+  end
+
+  def test_return_tail_value_for_empty_list
+    list = LinkedList.new
+    assert_equal nil, list.tail_value
+  end
+
+  def test_return_tail_value_for_multiple_item_list
+    list = LinkedList.new
+    node1 = Node.new("Violin")
+    node2 = Node.new("Cello")
+    node3 = Node.new("Viola")
+    list.prepend(node1)
+    list.append(node2)
+    list.append(node3)
+    assert_equal "Viola", list.tail_value
+  end
 end
