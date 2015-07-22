@@ -3,54 +3,85 @@ require 'pry'
 
 class LinkedList
 
-  attr_accessor :head
+  attr_accessor :head, :next_node
 
-  def initialize
-    @head = Node.new
-  end
-
-# append an element to the end of the list
+  # append an element to the end of the list
   def append(node)
+    current_node = @head
     if @head == nil
       @head = node
     else
-    current = @head
-      until current.next_node == nil
-        current = current.next_node
+      until current_node.next_node == nil
+         current_node = current_node.next_node
       end
-      current.next_node = node
+      current_node.next_node = node
     end
   end
 
-# prepend an element at the beginning of the list
+  # prepend an element at the beginning of the list
   def prepend(node)
-    if @head.nil?
-      @head = node
-    else
+    node.next_node = @head
+    @head = node
+  end
+
+  # insert an element at an arbitrary position in the list
+  def insert(node, index = 0)
+    if index > 0
+      current_node  = @head
+      previous_node = @head
+      index.times do current_node = current_node.next_node
+      end
+        node.next_node = current_node
+      (index-1).times do previous_node = previous_node.next_node
+      end
+        previous_node.next_node = node
+    else #prepend it
       node.next_node = @head
       @head = node
     end
   end
 
-# insert an element at an arbitrary position in the list
-  def insert(index, node)
-
-  end
-
-# includes? gives back true or false whether the supplied
-# value is in the list
-  def includes?(searched_node)
-    node = @head
-    while node != searched_node && node.next_node
-      node = node.next_node
+  # includes? gives back true or false whether the supplied value is in the list
+  def includes?(target_data)
+    current_node = @head
+    if @head == nil
+      false
+    elsif @head.next_node != nil
+      until current_node.next_node == nil
+        current_node = current_node.next_node
+        if current_node.data = target_data
+          true
+        else
+          false
+        end
+      end
+    elsif @head.data = target_data
+      true
+    else
+      false
     end
-    return true if node == searched_node
   end
 
-# pop an element from the end of the list
-  def pop
+  # pop an element from the end of the list
+  def pop(node)
+    current_node = @head
+    until current_node.next_node == nil
+       current_node = current_node.next_node
+    end
 
   end
+
+  # count the number of elements in the list
+  # return the head value at the beginning of the list
+  # return the tail value at the end of the list
+  # find_by_index find the value at a numeric position
+  # find_by_value finds the position of the first occurrence of a value
+  # remove_by_index removes the value at the specified index
+  # remove_by_value removes the first occurrence of the specified value
+
+end
+__END__
+
 # count the number of elements in the list
   def count(node)
     count = 0
@@ -60,13 +91,10 @@ class LinkedList
 
     end
   end
-# return the head value at the beginning of the list
-# return the tail value at the end of the list
+
 # find_by_index find the value at a numeric position
-# find_by_value finds the position of the first occurrence of a value
-# remove_by_index removes the value at the specified index
-# remove_by_value removes the first occurrence of the specified value
-
-
-
-end
+  def find_by_index
+    #start at head
+    #iterate until desired index found using += and store sum
+    #return data
+  end

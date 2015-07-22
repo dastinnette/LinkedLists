@@ -4,79 +4,100 @@ require './lib/linked_list'
 
 class LinkedListTest < Minitest::Test
 
-  def test_empty_list_can_append_node
+  def test_head_starts_as_nil
     list = LinkedList.new
-    node = Node.new("data")
+    assert_equal nil, list.head
+  end
+
+  def test_append_node_to_empty_list_is_head
+    list = LinkedList.new
+    node = Node.new
     list.append(node)
     assert_equal node, list.head
   end
 
-  def test_list_with_one_node_can_append_second_node
+  def test_append_node_to_list_with_one_item_does_not_change_head
     list = LinkedList.new
-    node = Node.new("data1")
-    node2 = Node.new("data2")
-    list.append(node)
+    node1 = Node.new("Violin")
+    node2 = Node.new("Cello")
+    list.append(node1)
     list.append(node2)
+    assert_equal node1, list.head
+  end
+
+  def test_append_node_to_list_with_two_items_puts_third_item_at_end
+    list = LinkedList.new
+    node1 = Node.new("Violin")
+    node2 = Node.new("Cello")
+    node3 = Node.new("Viola")
+    list.append(node1)
+    list.append(node2)
+    list.append(node3)
     assert_equal node2, list.head.next_node
   end
 
-  def test_list_with_two_nodes_can_append_third_node
+  def test_prepend_node_to_empty_list_is_head
     list = LinkedList.new
-    node = Node.new("data1")
-    node2 = Node.new("data2")
-    node3 = Node.new("data3")
-    list.append(node)
-    list.append(node2)
-    list.append(node3)
-    assert_equal node3, list.head.next_node.next_node
-  end
-
-  def test_prepend_node_to_list_beginning
-    list = LinkedList.new
-    node = Node.new("data")
+    node = Node.new
     list.prepend(node)
     assert_equal node, list.head
   end
 
-  def test_prepend_two_nodes_to_list_beginning
+  def test_prepend_node_to_list_with_one_item_changes_head
     list = LinkedList.new
     node1 = Node.new("Violin")
     node2 = Node.new("Cello")
     list.prepend(node1)
     list.prepend(node2)
+    assert_equal node1, list.head.next_node
+  end
+
+  def test_insert_node_into_empty_list_is_head
+    list = LinkedList.new
+    node = Node.new
+    list.insert(node)
+    assert_equal node, list.head
+  end
+
+  def test_insert_node_at_head
+    list = LinkedList.new
+    node1 = Node.new("Violin")
+    node2 = Node.new("Cello")
+    list.prepend(node1)
+    list.insert(node2, 0)
+    assert_equal node1, list.head.next_node
     assert_equal node2, list.head
-    assert_equal node2.next_node, node1
   end
 
   def test_insert_node_at_arbitrary_position
     list = LinkedList.new
-    node1 = Node.new("Thunderstruck")
-    node2 = Node.new("Back in Black")
-    node3 = Node.new("You Shook Me All Night Long")
-    list.prepend(node2)
-    list.prepend(node1)
-    list.insert(1, node3)
-    assert_equal list.head.data, "Thunderstruck"
-    assert_equal list.head.next_node.data, "You Shook Me All Night Long"
-
-  end
-
-  def test_node_is_identified_in_list
-    list = LinkedList.new
     node1 = Node.new("Violin")
     node2 = Node.new("Cello")
+    node3 = Node.new("Viola")
     list.prepend(node1)
-    list.prepend(node2)
-    assert list.includes?(node2)
+    list.append(node2)
+    list.insert(node3, 1)
+    assert_equal node3, list.head.next_node
+    assert_equal node1, list.head
   end
 
-  def test_list_refutes_inclusion_of_node_not_in_list
+  def test_search_for_data_in_empty_list
     list = LinkedList.new
-    node1 = Node.new("Violin")
-    node2 = Node.new("Cello")
-    list.prepend(node1)
-    refute list.includes?(node2.data)
+    refute list.includes?("data")
   end
 
+  def test_search_for_data_returns_true_for_one_item_list
+    list = LinkedList.new
+    node = Node.new("data")
+    list.prepend(node)
+    assert list.includes?(node.data)
+  end
 
+  def test_pop_one_item_list_removes_item
+    list = LinkedList.new
+    node = Node.new
+    list.prepend(node)
+    list.pop(node)
+    assert_equal nil, list.head
+  end
 end
