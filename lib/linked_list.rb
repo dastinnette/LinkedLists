@@ -166,7 +166,24 @@ class LinkedList
       @head = nil
     end
   end
+
   # remove_by_value removes the first occurrence of the specified value
-  def remove_value
+  def remove_value(target_data)
+    if @head != nil
+    current_node = @head
+    previous_node = @head
+    index_position = 0
+      until current_node.data == target_data
+        current_node = current_node.next_node
+        index_position += 1
+      end
+      place_holder_end = current_node.next_node
+      (index_position-1).times do previous_node = previous_node.next_node
+      end
+      previous_node.next_node = place_holder_end
+    else
+      nil
+    end
   end
+
 end
