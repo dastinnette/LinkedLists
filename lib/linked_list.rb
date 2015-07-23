@@ -11,10 +11,7 @@ class LinkedList
     if @head == nil
       @head = node
     else
-      until current_node.next_node == nil
-        current_node = current_node.next_node
-      end
-      current_node.next_node = node
+      tail.next_node = node
     end
   end
 
@@ -43,23 +40,7 @@ class LinkedList
 
   # includes? gives back true or false whether the supplied value is in the list
   def includes?(target_data)
-    current_node = @head
-    if @head == nil
-      false
-    elsif @head.next_node != nil
-      until current_node.next_node == nil
-        current_node = current_node.next_node
-        if current_node.data = target_data
-          true
-        else
-          false
-        end
-      end
-    elsif @head.data = target_data
-      true
-    else
-      false
-    end
+    !!find_index_by_value(target)
   end
 
   # pop an element from the end of the list
@@ -104,22 +85,26 @@ class LinkedList
     end
   end
 
-  # return the tail value at the end of the list
-  def tail_value
+  def tail
     if @head != nil
-    current_node  = @head
-    tail_node     = @head
-    tail_position = 0
+      current_node  = @head
+      tail_node     = @head
+      tail_position = 0
     until current_node.next_node == nil
       current_node = current_node.next_node
       tail_position += 1
     end
       (tail_position).times do tail_node = tail_node.next_node
       end
-      tail_node.data
+      tail_node
     else
       nil
     end
+  end
+
+  # return the tail value at the end of the list
+  def tail_value
+    tail.data
   end
 
   # find_by_index find the value at a numeric position
