@@ -211,8 +211,8 @@ class LinkedListTest < Minitest::Test
     list.prepend(node1)
     list.append(node2)
     list.append(node3)
-    list.remove_value_at_index(1)
-    assert_equal node3, list.head.next_node
+    list.remove_value_at_index(2)
+    assert_equal node2, list.head.next_node
     assert_equal nil, list.head.next_node.next_node
   end
 

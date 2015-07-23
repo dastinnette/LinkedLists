@@ -151,7 +151,20 @@ class LinkedList
 
   # remove_by_index removes the value at the specified index
   def remove_value_at_index(index)
-
+    if index > 0
+    current_node  = @head
+    previous_node = @head
+    index_position = 0
+      index.times do current_node = current_node.next_node
+        index_position += 1
+      end
+      place_holder_end = current_node.next_node
+      (index_position-1).times do previous_node = previous_node.next_node
+      end
+      previous_node.next_node = place_holder_end
+    else
+      @head = nil
+    end
   end
   # remove_by_value removes the first occurrence of the specified value
   def remove_value
