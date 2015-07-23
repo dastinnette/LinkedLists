@@ -23,6 +23,8 @@ class LinkedListTest < Minitest::Test
     list.append(node1)
     list.append(node2)
     assert_equal node1, list.head
+    refute_equal node2, list.head
+    assert_equal node2, list.head.next_node
   end
 
   def test_append_node_to_list_with_two_items_puts_third_item_at_end
@@ -33,7 +35,9 @@ class LinkedListTest < Minitest::Test
     list.append(node1)
     list.append(node2)
     list.append(node3)
+    assert_equal node1, list.head
     assert_equal node2, list.head.next_node
+    assert_equal node3, list.head.next_node.next_node
   end
 
   def test_prepend_node_to_empty_list_is_head
@@ -41,6 +45,7 @@ class LinkedListTest < Minitest::Test
     node = Node.new
     list.prepend(node)
     assert_equal node, list.head
+    assert_equal nil, list.head.next_node
   end
 
   def test_prepend_node_to_list_with_one_item_changes_head
@@ -49,7 +54,9 @@ class LinkedListTest < Minitest::Test
     node2 = Node.new("Cello")
     list.prepend(node1)
     list.prepend(node2)
+    assert_equal node2, list.head
     assert_equal node1, list.head.next_node
+    assert_equal nil, list.head.next_node.next_node
   end
 
   def test_insert_node_into_empty_list_is_head
@@ -57,6 +64,8 @@ class LinkedListTest < Minitest::Test
     node = Node.new
     list.insert(node)
     assert_equal node, list.head
+    assert_equal nil, list.head.next_node
+    refute_equal node, list.head.next_node
   end
 
   def test_insert_node_at_head
@@ -95,7 +104,7 @@ class LinkedListTest < Minitest::Test
 
   def test_pop_from_one_item_list_creates_nil_list
     list = LinkedList.new
-    node = Node.new("Beer")
+    node = Node.new("Violin")
     list.prepend(node)
     list.pop
     assert_equal nil, list.head
@@ -159,5 +168,23 @@ class LinkedListTest < Minitest::Test
     list.append(node2)
     list.append(node3)
     assert_equal "Viola", list.tail_value
+  end
+
+  def test_finds_value_of_empty_list
+    list = LinkedList.new
+    assert_equal nil, list.find_value_by_index(0)
+  end
+
+  def test_finds_value_at_specific_index
+    list = LinkedList.new
+    node1 = Node.new("Violin")
+    node2 = Node.new("Cello")
+    node3 = Node.new("Viola")
+    list.prepend(node1)
+    list.append(node2)
+    list.append(node3)
+    assert_equal "Cello", list.find_value_by_index(1)
+    assert_equal "Viola", list.find_value_by_index(2)
+  #  assert_equal nil, list.find_value_by_index(3)
   end
 end

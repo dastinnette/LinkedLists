@@ -84,12 +84,12 @@ class LinkedList
   def count
     if @head != nil
     current_node = @head
-    count = 1
+    count = 0
       until current_node.next_node == nil
         current_node = current_node.next_node
         count += 1
       end
-    count
+    count + 1
     else
       0
     end
@@ -123,6 +123,18 @@ class LinkedList
   end
 
   # find_by_index find the value at a numeric position
+  def find_value_by_index(index = 0)
+    # if index > count
+    #   nil
+    if index > 0
+      current_node = @head
+      index.times do current_node = current_node.next_node
+      end
+      current_node.data
+    else
+      @head.data if @head
+    end
+  end
 
   # find_by_value finds the position of the first occurrence of a value
 
@@ -131,11 +143,3 @@ class LinkedList
   # remove_by_value removes the first occurrence of the specified value
 
 end
-__END__
-
-# find_by_index find the value at a numeric position
-  def find_by_index
-    #start at head
-    #iterate until desired index found using += and store sum
-    #return data
-  end
