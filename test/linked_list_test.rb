@@ -88,6 +88,7 @@ class LinkedListTest < Minitest::Test
     list.insert(node3, 1)
     assert_equal node3, list.head.next_node
     assert_equal node1, list.head
+    refute_equal node2, list.head.next_node
   end
 
   def test_search_for_data_in_empty_list
@@ -108,6 +109,7 @@ class LinkedListTest < Minitest::Test
     list.prepend(node)
     list.pop
     assert_equal nil, list.head
+    refute list.includes?(node)
   end
 
   def test_pop_from_longer_list_removes_last_item_only
@@ -119,6 +121,7 @@ class LinkedListTest < Minitest::Test
     list.append(node2)
     list.append(node3)
     list.pop
+    refute list.includes?(node3)
     assert_equal nil, list.head.next_node.next_node
   end
 
@@ -136,6 +139,7 @@ class LinkedListTest < Minitest::Test
     list.append(node2)
     list.append(node3)
     assert_equal 3, list.count
+    assert_equal "Viola", list.head.next_node.next_node.data
   end
 
   def test_return_head_value_for_empty_list
@@ -185,6 +189,42 @@ class LinkedListTest < Minitest::Test
     list.append(node3)
     assert_equal "Cello", list.find_value_by_index(1)
     assert_equal "Viola", list.find_value_by_index(2)
-  #  assert_equal nil, list.find_value_by_index(3)
+  end
+
+  def test_finds_position_of_first_value_occurence
+    list = LinkedList.new
+    node1 = Node.new("Violin")
+    node2 = Node.new("Cello")
+    node3 = Node.new("Viola")
+    list.prepend(node1)
+    list.append(node2)
+    list.append(node3)
+    assert_equal 1, list.find_index_by_value("Cello")
+    assert_equal 2, list.find_index_by_value("Viola")
+  end
+
+  def test_removes_value_at_specific_index
+    list = LinkedList.new
+    node1 = Node.new("Violin")
+    node2 = Node.new("Cello")
+    node3 = Node.new("Viola")
+    list.prepend(node1)
+    list.append(node2)
+    list.append(node3)
+    list.remove_value_at_index(1)
+    assert_equal node3, list.head.next_node
+    assert_equal nil, list.head.next_node.next_node
+  end
+
+  def test_removes_first_occurence_of_specified_value
+    skip
+    list = LinkedList.new
+    node1 = Node.new("Violin")
+    node2 = Node.new("Cello")
+    node3 = Node.new("Viola")
+    list.prepend(node1)
+    list.append(node2)
+    list.append(node3)
+    assert_equal 1, list.remove_value("Cello")
   end
 end

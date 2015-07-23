@@ -124,8 +124,6 @@ class LinkedList
 
   # find_by_index find the value at a numeric position
   def find_value_by_index(index = 0)
-    # if index > count
-    #   nil
     if index > 0
       current_node = @head
       index.times do current_node = current_node.next_node
@@ -137,9 +135,25 @@ class LinkedList
   end
 
   # find_by_value finds the position of the first occurrence of a value
+  def find_index_by_value(target_data)
+    if @head != nil
+    current_node = @head
+    index_position = 0
+      until current_node.data == target_data
+        current_node = current_node.next_node
+        index_position += 1
+      end
+    index_position
+    else
+      nil
+    end
+  end
 
   # remove_by_index removes the value at the specified index
+  def remove_value_at_index(index)
 
+  end
   # remove_by_value removes the first occurrence of the specified value
-
+  def remove_value
+  end
 end
